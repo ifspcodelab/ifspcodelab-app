@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
@@ -14,7 +15,11 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
+
+
+
 
 public class ReportTemplates {
     public static final Font fontTitle = new Font(Font.HELVETICA, 13, Font.BOLD);
@@ -23,22 +28,25 @@ public class ReportTemplates {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static byte[] volunteerMonthlyReport() {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            Document doc = reportDocument();
-            PdfWriter.getInstance(doc, baos);
-            doc.open();
+    public static class VolunteerHeader extends PdfPageEventHelper {
+        @Override
+        public void onStartPage(PdfWriter writer, Document document) {
+            try {
+                document.add(ReportTemplates.volunteerReportHeader());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-            doc.add(volunteerReportHeader());
-            doc.add(generateTitle("ANEXO IV"));
-            doc.add(generateTitle("Relatório Mensal de Frequência e Avaliação - 2022"));
-
-            doc.close();
-            return baos.toByteArray();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    public static class ScholarshipHeader extends PdfPageEventHelper {
+        @Override
+        public void onStartPage(PdfWriter writer, Document document) {
+            try {
+                document.add(ReportTemplates.scholarshipReportHeader());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -49,7 +57,7 @@ public class ReportTemplates {
     public static PdfPTable volunteerReportHeader() throws BadElementException, IOException {
         PdfPTable pageHeader = new PdfPTable(5);
         pageHeader.setWidthPercentage(90);
-        pageHeader.setSpacingAfter(15);
+        pageHeader.setSpacingAfter(20);
         pageHeader.getDefaultCell().setBorderColor(new Color(255, 0, 0));
         Image imageIf = Image.getInstance(ReportTemplates.class.getResource("/logofed_1.jpg"));
         PdfPCell imageIfCell = new PdfPCell();
@@ -77,7 +85,7 @@ public class ReportTemplates {
     public static PdfPTable scholarshipReportHeader() throws Exception {
         PdfPTable pageHeader = new PdfPTable(5);
         pageHeader.setWidthPercentage(90);
-        pageHeader.setSpacingAfter(15);
+        pageHeader.setSpacingAfter(20);
         pageHeader.getDefaultCell().setBorderColor(new Color(255, 0, 0));
         Image imageIf = Image.getInstance(ReportTemplates.class.getResource("/logofed_1.jpg"));
         PdfPCell imageIfCell = new PdfPCell();

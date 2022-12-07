@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -19,16 +18,18 @@ public class MonthlyReportPdf {
     public static byte[] generate(MonthlyReportData data) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             Document doc = ReportTemplates.reportDocument();
-            PdfWriter.getInstance(doc, baos);
-            doc.open();
-
+            PdfWriter writer = PdfWriter.getInstance(doc, baos);
+            
             // Header
+            // must be set before doc.open()
             if(data.volunteer) {
-                doc.add(ReportTemplates.volunteerReportHeader());
+                writer.setPageEvent(new ReportTemplates.VolunteerHeader());
             } else {
-                doc.add(ReportTemplates.scholarshipReportHeader());
+                writer.setPageEvent(new ReportTemplates.ScholarshipHeader());
             }
-
+           
+            doc.open();
+            
             // Titles
             doc.add(ReportTemplates.generateTitle("ANEXO IV"));
             doc.add(ReportTemplates.generateTitle("Relatório Mensal de Frequência e Avaliação - 2022"));
