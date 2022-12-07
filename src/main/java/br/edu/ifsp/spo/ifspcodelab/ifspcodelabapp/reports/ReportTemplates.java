@@ -1,13 +1,11 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports;
 
 import java.awt.Color;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
@@ -17,9 +15,6 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPageEventHelper;
 import com.lowagie.text.pdf.PdfWriter;
-
-
-
 
 public class ReportTemplates {
     public static final Font fontTitle = new Font(Font.HELVETICA, 13, Font.BOLD);

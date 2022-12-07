@@ -41,7 +41,7 @@ public class TerminationTermPdf {
             sb.append(", solicito o desligamento do(a) Bolsista ");
             sb.append(data.studentName);
             sb.append(" a partir de ");
-            sb.append(data.terminationDate);
+            sb.append(data.terminationDate.format(ReportTemplates.formatter));
             sb.append(".");
 
             doc.add(ReportTemplates.generateParagraphJustified(sb.toString()));
