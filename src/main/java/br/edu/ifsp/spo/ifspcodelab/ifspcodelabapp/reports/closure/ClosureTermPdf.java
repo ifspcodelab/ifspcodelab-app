@@ -30,29 +30,22 @@ public class ClosureTermPdf {
             doc.add(ReportTemplates.generateTitle("ANEXO VII"));
             doc.add(ReportTemplates.generateTitle("TERMO DE ENCERRAMENTO DE PARTICIPAÇÃO EM PROJETO DE ENSINO"));
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("Eu, ");
-            sb.append(data.studentName);
-            sb.append(", prontuário ");
-            sb.append(data.studentId);
-            sb.append(", Bolsista de Ensino vinculado(a) ao Projeto ");
-            sb.append(data.projectTitle);
-            sb.append(" coordenado pelo(a) Professor(a) ");
-            sb.append(data.coordinatorName);
-            sb.append(", solicito o encerramento da minha participação, a partir de ");
-            sb.append(data.closureDate.format(ReportTemplates.formatter));
-            sb.append(".");
+            var line1 = String.format(
+                "Eu, %s, prontuário %s, Bolsista de Ensino vinculado(a) ao Projeto %s coordenado pelo(a) Professor(a) %s, " + 
+                "solicito o encerramento da minha participação, a partir de %s.", 
+                data.studentName, data.studentId, data.projectTitle, data.coordinatorName, data.closureDate.format(ReportTemplates.formatter)
+            );
 
-            doc.add(ReportTemplates.generateParagraphJustified(sb.toString()));
+            doc.add(ReportTemplates.generateParagraphJustified(line1));
 
-            doc.add(ReportTemplates.generateParagraphJustified("O motivo deste pedido é " + data.reason));
+            doc.add(ReportTemplates.generateParagraphJustified(String.format("O motivo deste pedido é %s", data.reason)));
 
             doc.add(ReportTemplates.generateParagraphJustified("Estou ciente de que um retorno ao Programa " + 
             "de Bolsa Discente é condicionado à existência de vagas, à inexistência de pendências com o " +
             "Projeto e ao atendimento às demais condições do Edital."));
 
             var month = data.termDate.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
-            var locationAndDate = "São Paulo, " + data.termDate.getDayOfMonth() + " de " + month + " de " + data.termDate.getYear();
+            var locationAndDate = String.format("São Paulo, %s de %s de %s", data.termDate.getDayOfMonth(), month, data.termDate.getYear());
             doc.add(ReportTemplates.generateParagraphCenter(locationAndDate));
 
             doc.close();
