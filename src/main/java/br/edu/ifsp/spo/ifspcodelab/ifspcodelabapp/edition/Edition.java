@@ -26,4 +26,11 @@ public class Edition {
     private LocalDate endDate;
     @ManyToOne
     private Project project;
+
+    public Edition(LocalDate startDate, LocalDate endDate, Project project){
+        this.id = UUID.randomUUID();
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.project = project;
+    }
 }
