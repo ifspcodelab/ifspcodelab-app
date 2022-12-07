@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "subevents")
+@Table(name = "editions")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
