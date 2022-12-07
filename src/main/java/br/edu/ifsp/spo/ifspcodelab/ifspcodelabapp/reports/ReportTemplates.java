@@ -127,6 +127,25 @@ public class ReportTemplates {
        return generateTitle(text, fontTitle);
     }
 
+
+    public static Paragraph generateParagraphJustified(String text) {
+        Paragraph paragraph = new Paragraph(text, fontDefault);
+        paragraph.setAlignment(Element.ALIGN_JUSTIFIED);
+        paragraph.setSpacingBefore(15);
+        paragraph.setSpacingAfter(7);
+        paragraph.setLeading(24);
+        return paragraph;
+    }
+
+    public static Paragraph generateParagraphCenter(String text) {
+        Paragraph paragraph = new Paragraph(text, fontDefault);
+        paragraph.setAlignment(Element.ALIGN_CENTER);
+        paragraph.setSpacingBefore(15);
+        paragraph.setSpacingAfter(7);
+        paragraph.setLeading(24);
+        return paragraph;
+    }
+
     public static PdfPCell generateCell(String text, int colSpan, Font font) {
         Paragraph paragraph = new Paragraph(text, font);
         paragraph.setMultipliedLeading(1.4f);
