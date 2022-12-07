@@ -16,11 +16,10 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.monthy.MonthlyReportData;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.monthy.MonthlyReportPdf;
-import lombok.var;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.termination.TerminationTermData;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.termination.TerminationTermPdf;
 
 public class ReportTest {
-    private String name;
-    
     @Test
     public void helloWorldPdf() {
         try (var fos = new FileOutputStream("hello-world.pdf");) {
@@ -120,6 +119,49 @@ public class ReportTest {
         );
         var fos = new FileOutputStream("monthlyReportBreakSignatures.pdf");
         fos.write(MonthlyReportPdf.generate(data));
+        fos.close();
+    }
+
+
+    @Test
+    public void volunteerTerminationTerm() throws Exception   {
+        var data = new TerminationTermData(
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
+            "João da Silva", 
+            "SP010101",
+            "Maria Campus Gomes", 
+            "SP333333",
+            LocalDate.now(),
+            "Pedro da Silva",
+            "SP444444",
+            LocalDate.now(),
+            LocalDate.now(),
+            Boolean.TRUE,
+            "A aluna não entregou os relatórios e não realizou as atividades."
+        );
+        var fos = new FileOutputStream("volunteerTerminationTerm.pdf");
+        fos.write(TerminationTermPdf.generate(data));
+        fos.close();
+    }
+
+    @Test
+    public void scholarshipTerminationTerm() throws Exception  {
+        var data = new TerminationTermData(
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
+            "João da Silva", 
+            "SP010101",
+            "Maria Campus Gomes", 
+            "SP333333",
+            LocalDate.now(),
+            "Pedro da Silva",
+            "SP444444",
+            LocalDate.now(),
+            LocalDate.now(),
+            Boolean.FALSE,
+            "A aluna não entregou os relatórios e não realizou as atividades."
+        );
+        var fos = new FileOutputStream("scholarshipTerminationTerm.pdf");
+        fos.write(TerminationTermPdf.generate(data));
         fos.close();
     }
 }
