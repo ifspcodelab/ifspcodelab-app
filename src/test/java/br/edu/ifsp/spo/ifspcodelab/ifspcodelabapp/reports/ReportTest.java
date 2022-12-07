@@ -14,6 +14,8 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.closure.ClosureTermData;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.closure.ClosureTermPdf;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.monthy.MonthlyReportData;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.monthy.MonthlyReportPdf;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports.termination.TerminationTermData;
@@ -162,6 +164,41 @@ public class ReportTest {
         );
         var fos = new FileOutputStream("scholarshipTerminationTerm.pdf");
         fos.write(TerminationTermPdf.generate(data));
+        fos.close();
+    }
+
+
+    @Test
+    public void volunteerClosureTerm() throws Exception   {
+        var data = new ClosureTermData(
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
+            "João da Silva", 
+            "Maria Campus Gomes", 
+            "SP333333",
+            LocalDate.now(),
+            LocalDate.now(),
+            "Fui contratado por um empresa.",
+            Boolean.TRUE
+        );
+        var fos = new FileOutputStream("volunteerClosureTerm.pdf");
+        fos.write(ClosureTermPdf.generate(data));
+        fos.close();
+    }
+
+    @Test
+    public void scholarshipClosureTerm() throws Exception  {
+        var data = new ClosureTermData(
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
+            "João da Silva", 
+            "Maria Campus Gomes", 
+            "SP333333",
+            LocalDate.now(),
+            LocalDate.now(),
+            "Fui contratado por um empresa.",
+            Boolean.TRUE
+        );
+        var fos = new FileOutputStream("scholarshipClosureTerm.pdf");
+        fos.write(ClosureTermPdf.generate(data));
         fos.close();
     }
 }
