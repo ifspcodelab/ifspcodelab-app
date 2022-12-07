@@ -31,4 +31,16 @@ public class Student {
     @ManyToOne
     private Course course;
     private String cellphone;
+
+    public Student(String email, String name, String cpf, String rg, LocalDate birthDate, String registration, Course course, String cellphone) {
+        this.id = UUID.randomUUID();
+        this.email = email;
+        this.name = name;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.birthDate = birthDate;
+        this.registration = registration;
+        this.course = course;
+        this.cellphone = cellphone;
+    }
 }
