@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -113,10 +114,10 @@ public class MonthlyReportPdf {
 
     private static PdfPTable generateSignatures(MonthlyReportData data) {
         PdfPTable table = new PdfPTable(2);
-        
-        table.setWidthPercentage(100);
+        table.setKeepTogether(true);
         table.setSpacingBefore(40);
-        table.getDefaultCell().setBorderColor(new Color(255, 255, 255));
+        table.setWidthPercentage(100);
+        
         table.addCell(ReportTemplates.generateCellCenter("________________________________", 1, ReportTemplates.fontTimesBold));
         table.addCell(ReportTemplates.generateCellCenter("________________________________", 1, ReportTemplates.fontTimesBold));
 
