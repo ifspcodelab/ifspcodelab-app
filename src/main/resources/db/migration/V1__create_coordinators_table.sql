@@ -1,4 +1,4 @@
-CREATE TABLE coordinator (
+CREATE TABLE coordinators (
     id UUID NOT NULL,
     name VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
