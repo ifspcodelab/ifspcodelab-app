@@ -42,11 +42,8 @@ public class MonthlyReportPdf {
             // Content
             doc.add(generateContent(data));
 
-            // Footer message
-            String message = "Observação: Entregar este relatório via plataforma Moodle até o dia 05 de cada mês, conforme previsto no edital.";
-            Paragraph messageParagraph = new Paragraph(message, ReportTemplates.fontDefault);
-            messageParagraph.setSpacingAfter(6);
-            doc.add(messageParagraph);
+            // Note
+            doc.add(generateNoteText(data));
 
             // Signatures
             doc.add(generateSignatures(data));
@@ -99,9 +96,24 @@ public class MonthlyReportPdf {
         return table;
     }
 
-   private static PdfPTable generateSignatures(MonthlyReportData data) {
+
+    private static Paragraph generateNoteText(MonthlyReportData data) {
+        String message = "";
+        
+        if(data.volunteer) {
+            message = "Observação: Entregar este relatório via plataforma Moodle até o dia 05 de cada mês, conforme previsto no edital.";
+        } else {
+            message = "Observação: Entregar este relatório via plataforma Moodle até o dia 01 de cada mês, conforme previsto no edital.";
+        }
+
+        Paragraph paragraph = new Paragraph(message, ReportTemplates.fontDefault);
+        paragraph.setSpacingAfter(6);
+        return paragraph;
+    }
+
+    private static PdfPTable generateSignatures(MonthlyReportData data) {
         PdfPTable table = new PdfPTable(2);
-       
+        
         table.setWidthPercentage(100);
         table.setSpacingBefore(40);
         table.getDefaultCell().setBorderColor(new Color(255, 255, 255));
@@ -111,11 +123,11 @@ public class MonthlyReportPdf {
         if(data.volunteer) {
             table.addCell(ReportTemplates.generateCellCenter("Voluntário", 1, ReportTemplates.fontDefault));
         } else {
-            table.addCell(ReportTemplates.generateCellCenter("Bolsista", 1, ReportTemplates.fontDefault));
+            table.addCell(ReportTemplates.generateCellCenter("Bolsista de Ensino", 1, ReportTemplates.fontDefault));
         }
 
         table.addCell(ReportTemplates.generateCellCenter("Professor Responsável", 1, ReportTemplates.fontDefault));
-       
+        
         return table;
-   }
+    }
 }

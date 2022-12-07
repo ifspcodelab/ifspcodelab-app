@@ -3,7 +3,6 @@ package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.reports;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.lowagie.text.BadElementException;
