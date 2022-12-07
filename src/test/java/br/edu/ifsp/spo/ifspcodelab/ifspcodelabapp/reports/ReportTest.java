@@ -73,9 +73,9 @@ public class ReportTest {
     }
 
     @Test
-    public void volunteerMonthlyReport() throws BadElementException, DocumentException, IOException  {
+    public void volunteerMonthlyReport() throws Exception   {
         var data = new MonthlyReportData(
-            "IFSP Codelab", 
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
             "João da Silva", 
             "Maria Campus Gomes", 
             LocalDate.now(), 
@@ -85,8 +85,25 @@ public class ReportTest {
             true
         );
 
-        try (var fos = new FileOutputStream("volunteerMonthlyReport.pdf")) {
-            fos.write(MonthlyReportPdf.generate(data));
-        }
+        var fos = new FileOutputStream("volunteerMonthlyReport.pdf");
+        fos.write(MonthlyReportPdf.generate(data));
+        fos.close();
+    }
+
+    @Test
+    public void scholarshipMonthlyReport() throws Exception  {
+        var data = new MonthlyReportData(
+            "Laboratório de Desenvolvimento de Software – IFSP CodeLab", 
+            "João da Silva", 
+            "Maria Campus Gomes", 
+            LocalDate.now(), 
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. In condimentum purus orci, eu viverra libero pretium in. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. Nunc id enim sed magna efficitur volutpat sit amet ac ex. ",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. In condimentum purus orci, eu viverra libero pretium in. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. Nunc id enim sed magna efficitur volutpat sit amet ac ex. ",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. In condimentum purus orci, eu viverra libero pretium in. Nunc id enim sed magna efficitur volutpat sit amet ac ex. Nam in dignissim ligula, quis consectetur est. Vestibulum accumsan id metus sit amet bibendum. Praesent mauris ipsum, vestibulum quis nisl eget, cursus pretium orci. Nunc id enim sed magna efficitur volutpat sit amet ac ex. ",
+            false
+        );
+        var fos = new FileOutputStream("scholarshipMonthlyReport.pdf");
+        fos.write(MonthlyReportPdf.generate(data));
+        fos.close();
     }
 }
