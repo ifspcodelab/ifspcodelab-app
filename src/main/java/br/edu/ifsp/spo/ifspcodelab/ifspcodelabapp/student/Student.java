@@ -22,6 +22,7 @@ import java.util.UUID;
 public class Student {
     @Id
     private UUID id;
+    private String email;
     private String name;
     private String cpf;
     private String rg;

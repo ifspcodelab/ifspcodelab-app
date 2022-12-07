@@ -1,5 +1,6 @@
 CREATE TABLE students(
     id UUID NOT NULL,
+    email VARCHAR NOT NULL,
     name VARCHAR NOT NULL,
     cpf VARCHAR NOT NULL,
     rg VARCHAR NOT NULL,
