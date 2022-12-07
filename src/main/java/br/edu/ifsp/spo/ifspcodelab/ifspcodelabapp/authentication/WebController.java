@@ -12,6 +12,6 @@ public class WebController {
 
     @GetMapping("/private")
     public String privatePage() {
-        return "Isso deveria ser privado ";
+        return "This should be private";
     }
 }
