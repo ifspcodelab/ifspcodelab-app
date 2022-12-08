@@ -13,6 +13,7 @@ import java.util.UUID;
 public class ParticipationController {
     @GetMapping
     public ModelAndView index(@PathVariable UUID projectId, @PathVariable UUID editionId) {
+        //TODO: Retornar lista de participações para a view
         ModelAndView mv = new ModelAndView("participation/index");
         return mv;
     }
