@@ -1,0 +1,23 @@
+CREATE TABLE applications(
+    id UUID NOT NULL,
+    created_at DATE NOT NULL,
+    registration VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    birthDate DATE NOT NULL,
+    email VARCHAR NOT NULL,
+    phone VARCHAR NOT NULL,
+    github VARCHAR NOT NULL,
+    ira REAL NOT NULL,
+    participationInProjects TEXT NOT NULL,
+    praticalExperience TEXT NOT NULL,
+    notes TEXT NOT NULL,
+    points SMALLINT NOT NULL,
+    selected BOOLEAN NOT NULL,
+    shift VARCHAR NOT NULL,
+    period VARCHAR NOT NULL,
+    course_id UUID NOT NULL,
+    selection_id UUID NOT NULL,
+    CONSTRAINT applications_pk PRIMARY KEY (id),
+    CONSTRAINT courses_fk FOREIGN KEY (course_id) REFERENCES courses(id),
+    CONSTRAINT selections_fk FOREIGN KEY (selection_id) REFERENCES selections(id)
+)
