@@ -1,0 +1,15 @@
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: -400%;
+}
+
+.bi-person-circle{
+    font-size: 1.8rem;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

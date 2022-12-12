@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Participações do coordenador')}"></head>
+<body>
+    <header th:replace="~{layout :: header()}"></header>
+
+    <section class="px-sm-5 px-4">
+        <!--TODO: Colocar o nome do usuário logado-->
+        <p>Olá, {coordernador}</p>
+
+        <main>
+            <div class="list-group">
+            <!--TODO: Fazer um foreach para cada participação do usuário logado-->
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    IFSP Codelab - 2023 - coordernador
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    IFSP Codelab - 2024 - coordernador
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    IFSP Codelab - 2025 - coordernador
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-calendar-event me-2"></i>
+                    IFSP Codelab - 2026 - coordernador
+                </a>
+            </div>
+        </main>
+    </section>
+</body>
+</html>
