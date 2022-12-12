@@ -21,6 +21,8 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/").permitAll();
                     authorizeConfig.requestMatchers("/error").permitAll();
                     authorizeConfig.requestMatchers("/icon.ico").permitAll();
+                    authorizeConfig.requestMatchers("/selections/*/applications/submit").permitAll();
+                    authorizeConfig.requestMatchers("/selections/*/applications/success").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 })
                 .formLogin(withDefaults())
