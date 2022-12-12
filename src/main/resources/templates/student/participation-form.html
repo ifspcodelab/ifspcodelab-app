@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,8 @@
   <title>Student Participation Form</title>
 </head>
 <body>
-  <form>
+  <!-- distinguish endpoint via ternary operator or something -->
+  <form action="https://localhost:8080/applications/{applicationId}/finish-project-application/">
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
       <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
@@ -52,6 +53,9 @@
       <label class="form-check-label" for="inputCheckParticipation">
         Confirmo que as informações inseridas aqui serão usadas para gerar minha Ficha de Inscrição no Projeto de Ensino e confirmar minha participação nele.
       </label>
+    </div>
+    <div th:if="${studentApplication.isScholarship}">
+      <p>Hello there</p>
     </div>
     <button type="submit" class="btn btn-primary">Confirmar cadastro</button>
   </form>

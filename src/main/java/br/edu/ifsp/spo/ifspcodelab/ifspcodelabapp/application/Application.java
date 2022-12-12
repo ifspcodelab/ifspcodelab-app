@@ -37,7 +37,7 @@ public class Application {
     private String github;
     private Double ira;
     private String participationInProjects;
-    private String praticalExperience;
+    private String practicalExperience;
     private String notes;
     @ManyToOne
     private Course course;
@@ -47,12 +47,13 @@ public class Application {
     @ManyToOne
     private Selection selection;
     private Integer points;
-    private Boolean selected;
+    @Enumerated(EnumType.STRING)
+    private SelectedParticipationType selectedParticipationType;
     
     public Application(LocalDate createdAt, String registration, String name, LocalDate birthDate, String email,
             String phone, String github, Double ira, String participationInProjects, String praticalExperience,
             String notes, Course course, Shift shift, String period, Selection selection, Integer points,
-            Boolean selected) {
+            SelectedParticipationType selectedParticipationType) {
         this.id = UUID.randomUUID();
         this.createdAt = createdAt;
         this.registration = registration;
@@ -63,13 +64,17 @@ public class Application {
         this.github = github;
         this.ira = ira;
         this.participationInProjects = participationInProjects;
-        this.praticalExperience = praticalExperience;
+        this.practicalExperience = praticalExperience;
         this.notes = notes;
         this.course = course;
         this.shift = shift;
         this.period = period;
         this.selection = selection;
         this.points = points;
-        this.selected = selected;
-    } 
+        this.selectedParticipationType = selectedParticipationType;
+    }
+
+    public Boolean isScholarship() {
+        return this.selectedParticipationType.equals(SelectedParticipationType.SCHOLARSHIP);
+    }
 }

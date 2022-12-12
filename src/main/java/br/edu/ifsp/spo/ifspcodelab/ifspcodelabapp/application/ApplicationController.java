@@ -106,8 +106,8 @@ public class ApplicationController {
             form.shift, 
             form.period, 
             selection, 
-            0, 
-            false
+            0,
+            SelectedParticipationType.ON_REVIEW
         );
 
         log.info(form.toString());

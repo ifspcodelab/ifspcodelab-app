@@ -9,29 +9,36 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 import java.util.UUID;
 
+interface BasicStudentInfo {  }
+
+interface StudentBankingData {  }
+
 @Value
 public class StudentCreateDto {
-    @NotNull
-    @Email
+    @NotNull(groups = BasicStudentInfo.class)
+    @Email(groups = BasicStudentInfo.class)
     String email;
-    @NotNull
-    @NotBlank
+    @NotNull(groups = BasicStudentInfo.class)
+    @NotBlank(groups = BasicStudentInfo.class)
     String name;
-    @NotNull
-    @CPF
+    @NotNull(groups = BasicStudentInfo.class)
+    @CPF(groups = BasicStudentInfo.class)
     String cpf;
-    @NotNull
-    @NotBlank
+    @NotNull(groups = BasicStudentInfo.class)
+    @NotBlank(groups = BasicStudentInfo.class)
     String rg;
-    @NotNull
-    @NotBlank
+    @NotNull(groups = BasicStudentInfo.class)
+    @NotBlank(groups = BasicStudentInfo.class)
     LocalDate birthDate;
-    @NotNull
-    @NotBlank
+    @NotNull(groups = BasicStudentInfo.class)
+    @NotBlank(groups = BasicStudentInfo.class)
     String registration;
-    @NotNull
+    @NotNull(groups = BasicStudentInfo.class)
     UUID courseId;
-    @NotNull
-    @NotBlank
+    @NotNull(groups = BasicStudentInfo.class)
+    @NotBlank(groups = BasicStudentInfo.class)
     String cellphone;
+    @NotNull(groups = StudentBankingData.class)
+    @NotBlank(groups = StudentBankingData.class)
+    String bankName;
 }
