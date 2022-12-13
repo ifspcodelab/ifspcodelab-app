@@ -13,13 +13,15 @@
   <form action="https://localhost:8080/applications/{applicationId}/finish-project-application/">
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}">
       <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
     </div>
+
     <div class="mb-3">
       <label for="inputName" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="inputName">
+      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}">
     </div>
+
     <div class="mb-3">
       <label for="selectCourse" class="form-label">Curso</label>
       <select class="form-select" aria-label="Curso" id="selectCourse">
@@ -29,22 +31,27 @@
         <option value="2">Bacharelado em Sistemas de Informação</option>
       </select>
     </div>
+
     <div class="mb-3">
       <label for="inputRegistration" class="form-label">Matrícula</label>
-      <input type="text" class="form-control" id="inputRegistration">
+      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}">
     </div>
+
     <div class="mb-3">
       <label for="inputCpf" class="form-label">CPF</label>
       <input type="text" class="form-control" id="inputCpf">
     </div>
+
     <div class="mb-3">
       <label for="inputRg" class="form-label">RG</label>
       <input type="text" class="form-control" id="inputRg">
     </div>
+
     <div class="mb-3">
       <label for="inputBirthdate" class="form-label">Data de Nascimento</label>
-      <input class="form-control" type="date" id="inputBirthdate">
+      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}">
     </div>
+
     <div class="mb-3">
       <label for="inputCellphone" class="form-label">Celular</label>
       <input type="number" class="form-control" id="inputCellphone">
