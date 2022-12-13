@@ -25,10 +25,9 @@
     <div class="mb-3">
       <label for="selectCourse" class="form-label">Curso</label>
       <select class="form-select" aria-label="Curso" id="selectCourse">
-        <option selected>Selecione seu curso</option>
-        <option value="1">Técnico em Informática</option>
-        <option value="2">Tecnologia em Análise de Sistemas</option>
-        <option value="2">Bacharelado em Sistemas de Informação</option>
+<!--        <option selected>Selecione seu curso</option>-->
+        <option selected th:value="${studentApplication.course.id}" th:text="${studentApplication.course.name}"></option>
+        <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
       </select>
     </div>
 
