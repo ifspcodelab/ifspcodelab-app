@@ -8,6 +8,7 @@
   <title>Student Participation Form</title>
 </head>
 <body>
+  <div class="container">
   <!-- distinguish endpoint via ternary operator or something -->
   <form action="https://localhost:8080/applications/{applicationId}/finish-project-application/">
     <div class="mb-3">
@@ -21,7 +22,7 @@
     </div>
     <div class="mb-3">
       <label for="selectCourse" class="form-label">Curso</label>
-      <select class="form-select" aria-label="Default select example" id="selectCourse">
+      <select class="form-select" aria-label="Curso" id="selectCourse">
         <option selected>Selecione seu curso</option>
         <option value="1">Técnico em Informática</option>
         <option value="2">Tecnologia em Análise de Sistemas</option>
@@ -48,16 +49,47 @@
       <label for="inputCellphone" class="form-label">Celular</label>
       <input type="number" class="form-control" id="inputCellphone">
     </div>
+
+    <section th:if="${studentApplication.isScholarship}" class="mb-3" id="sectionScholarshipData">
+      <p th:align="justify">Sua aplicação no projeto foi selecionada como bolsista, portanto, insira a seguir as suas informações bancárias.</p>
+
+      <div class="mb-3">
+        <label for="datalistBanks" class="form-label">Banco</label>
+        <input class="form-control" list="datalistBankOptions" id="datalistBanks" placeholder="Digite aqui o nome do banco a ser buscado">
+        <datalist id="datalistBankOptions">
+          <!-- TODO: replace mock data with Brazilian banks dataset -->
+          <option value="San Francisco">
+          <option value="New York">
+          <option value="Seattle">
+          <option value="Los Angeles">
+          <option value="Chicago">
+        </datalist>
+      </div>
+
+      <div class="mb-3">
+        <label for="inputBankAgency" class="form-label">Agência</label>
+        <input th:type="text" class="form-control" id="inputBankAgency">
+      </div>
+
+      <div class="mb-3">
+        <label for="selectBankAccount" class="form-label">Conta</label>
+        <select class="form-select" aria-label="Tipo de conta" id="selectBankAccount">
+          <option selected>Selecione o tipo da sua conta</option>
+          <option value="currentAccount">Conta corrente</option>
+          <option value="savingsAccount">Conta poupança</option>
+        </select>
+      </div>
+    </section>
+
     <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="inputCheckParticipation">
-      <label class="form-check-label" for="inputCheckParticipation">
+      <label class="form-check-label" for="inputCheckParticipation" th:align="justify">
         Confirmo que as informações inseridas aqui serão usadas para gerar minha Ficha de Inscrição no Projeto de Ensino e confirmar minha participação nele.
       </label>
     </div>
-    <div th:if="${studentApplication.isScholarship}">
-      <p>Hello there</p>
-    </div>
+
     <button type="submit" class="btn btn-primary">Confirmar cadastro</button>
   </form>
+  </div>
 </body>
 </html>
