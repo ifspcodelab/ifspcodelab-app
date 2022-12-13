@@ -5,27 +5,24 @@
     <header th:replace="~{layout :: header()}"></header>
 
     <section class="px-sm-5 px-4">
-        <!--TODO: Colocar o nome do usuário logado-->
-        <p>Olá, {coordernador}</p>
+        <p>Olá, <span th:text="${coordinatorParticipations.get(0).getCoordinator().getName()}"></span></p>
 
         <main>
+            <h1 class="h3">Minhas participações</h1>
             <div class="list-group">
-            <!--TODO: Fazer um foreach para cada participação do usuário logado-->
-                <a href="#" class="list-group-item list-group-item-action">
+            <!-- TODO: Linkar para a página contendo a participação específica -->
+                <a th:each="coordinatorParticipation : ${coordinatorParticipations}"
+                   href="#"
+                   class="list-group-item list-group-item-action"
+                >
                     <i class="bi bi-calendar-event me-2"></i>
-                    IFSP Codelab - 2023 - coordernador
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="bi bi-calendar-event me-2"></i>
-                    IFSP Codelab - 2024 - coordernador
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="bi bi-calendar-event me-2"></i>
-                    IFSP Codelab - 2025 - coordernador
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="bi bi-calendar-event me-2"></i>
-                    IFSP Codelab - 2026 - coordernador
+                    <span th:text="${coordinatorParticipation.getEdition().getProject().getName()}"></span>
+                    <span> - </span>
+                    <span th:text="${#temporals.format(coordinatorParticipation.getStartDate(), 'dd/MM/yyyy')}"></span>
+                    <span> a </span>
+                    <span th:if="${coordinatorParticipation.getEndDate()} != null"
+                          th:text="${#temporals.format(coordinatorParticipation.getEndDate(), 'dd/MM/yyyy')}"></span>
+                    <span th:if="${coordinatorParticipation.getEndDate()} == null">Atual</span>
                 </a>
             </div>
         </main>
