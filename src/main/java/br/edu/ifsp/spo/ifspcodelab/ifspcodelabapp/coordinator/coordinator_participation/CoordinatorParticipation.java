@@ -1,4 +1,4 @@
-package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator_participation;
+package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator.coordinator_participation;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator.Coordinator;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.edition.Edition;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "coordinator_participations")
+@Table(name = "coordinators_participations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
