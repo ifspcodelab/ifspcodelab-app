@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum SelectedParticipationType {
+public enum ApplicationSelectionStatus {
     ON_REVIEW,
     NOT_SELECTED,
-    VOLUNTEER,
-    SCHOLARSHIP;
+    SELECTED_AS_VOLUNTEER,
+    SELECTED_AS_SCHOLARSHIP;
 }

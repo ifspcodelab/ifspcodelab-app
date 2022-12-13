@@ -2,7 +2,7 @@ package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
-import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.SelectedParticipationType;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationSelectionStatus;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -35,7 +34,7 @@ public class StudentController {
 
         Application application = new Application();
 
-        application.setSelectedParticipationType(SelectedParticipationType.SCHOLARSHIP);
+        application.setApplicationSelectionStatus(ApplicationSelectionStatus.SELECTED_AS_SCHOLARSHIP);
         //Attribute name should not be named 'application' because it conflicts with Thymeleaf
         mv.addObject("studentApplication", application);
 

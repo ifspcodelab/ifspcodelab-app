@@ -48,12 +48,12 @@ public class Application {
     private Selection selection;
     private Integer points;
     @Enumerated(EnumType.STRING)
-    private SelectedParticipationType selectedParticipationType;
+    private ApplicationSelectionStatus applicationSelectionStatus;
     
     public Application(LocalDate createdAt, String registration, String name, LocalDate birthDate, String email,
             String phone, String github, Double ira, String participationInProjects, String praticalExperience,
             String notes, Course course, Shift shift, String period, Selection selection, Integer points,
-            SelectedParticipationType selectedParticipationType) {
+            ApplicationSelectionStatus applicationSelectionStatus) {
         this.id = UUID.randomUUID();
         this.createdAt = createdAt;
         this.registration = registration;
@@ -71,10 +71,10 @@ public class Application {
         this.period = period;
         this.selection = selection;
         this.points = points;
-        this.selectedParticipationType = selectedParticipationType;
+        this.applicationSelectionStatus = applicationSelectionStatus;
     }
 
     public Boolean isScholarship() {
-        return this.selectedParticipationType.equals(SelectedParticipationType.SCHOLARSHIP);
+        return this.applicationSelectionStatus.equals(ApplicationSelectionStatus.SELECTED_AS_SCHOLARSHIP);
     }
 }

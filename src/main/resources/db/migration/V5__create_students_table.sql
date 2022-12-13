@@ -8,6 +8,6 @@ CREATE TABLE students(
     registration VARCHAR NOT NULL,
     course_id UUID NOT NULL,
     cellphone VARCHAR NOT NULL,
-    CONSTRAINT students_fk PRIMARY KEY (id),
+    CONSTRAINT students_pk PRIMARY KEY (id),
     CONSTRAINT courses_fk FOREIGN KEY (course_id) REFERENCES courses(id)
 );
