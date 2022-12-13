@@ -12,7 +12,7 @@ CREATE TABLE applications(
     practical_experience TEXT NOT NULL,
     notes TEXT NOT NULL,
     points SMALLINT NOT NULL,
-    selected_participation_type VARCHAR NOT NULL,
+    application_selection_status VARCHAR NOT NULL,
     shift VARCHAR NOT NULL,
     period VARCHAR NOT NULL,
     course_id UUID NOT NULL,
