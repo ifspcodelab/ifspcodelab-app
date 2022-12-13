@@ -1,7 +1,7 @@
-package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student_participation;
+package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator_participation;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator.Coordinator;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.edition.Edition;
-import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -15,26 +15,26 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "student_participations")
+@Table(name = "coordinator_participations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class StudentParticipation {
+public class CoordinatorParticipation {
     @Id
     private UUID id;
-    private LocalDate entryDate;
-    private LocalDate departureDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     @ManyToOne
-    private Student student;
+    private Coordinator coordinator;
     @ManyToOne
     private Edition edition;
 
-    public StudentParticipation(LocalDate entryDate, LocalDate departureDate, Student student, Edition edition) {
+    public CoordinatorParticipation(LocalDate startDate, LocalDate endDate, Coordinator coordinator, Edition edition) {
         this.id = UUID.randomUUID();
-        this.entryDate = entryDate;
-        this.departureDate = departureDate;
-        this.student = student;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.coordinator = coordinator;
         this.edition = edition;
     }
 }
