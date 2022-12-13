@@ -1,4 +1,4 @@
-package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator_participation;
+package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.coordinator.coordinator_participation;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
