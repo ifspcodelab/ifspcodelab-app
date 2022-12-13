@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -22,21 +23,19 @@ public class StudentController {
     private final ApplicationRepository applicationRepository;
     private final StudentService studentService;
 
+    // http://localhost:8080/applications/26be9581-43c2-4ba9-9bf3-55edb095a362/finish-project-application
     @GetMapping
     public ModelAndView create(@PathVariable UUID applicationId) {
-//        Optional<Application> application = applicationRepository.findById(applicationId);
-//        if (application.isEmpty()) {
-//            log.warn("Application of id {} does not exist", applicationId);
-//            return new ModelAndView("redirect:/");
-//        }
+        Optional<Application> application = applicationRepository.findById(applicationId);
+        if (application.isEmpty()) {
+            log.warn("Application of id {} does not exist", applicationId);
+            return new ModelAndView("redirect:/");
+        }
 
         ModelAndView mv = new ModelAndView("student/participation-form");
 
-        Application application = new Application();
-
-        application.setApplicationSelectionStatus(ApplicationSelectionStatus.SELECTED_AS_SCHOLARSHIP);
         //Attribute name should not be named 'application' because it conflicts with Thymeleaf
-        mv.addObject("studentApplication", application);
+        mv.addObject("studentApplication", application.get());
 
         return mv;
     }
