@@ -5,12 +5,13 @@ import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationReposit
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -48,20 +49,16 @@ public class StudentController {
     }
 
     @PostMapping("volunteer")
-    public ModelAndView createVolunteer(@Validated(BasicStudentInfo.class) StudentCreateDto studentCreateDto, BindingResult bindingResult) {
-        //Student student = studentService.create(studentCreateDto);
-        log.warn("hello there");
-        log.warn(String.valueOf(bindingResult.hasErrors()));
-        log.warn(bindingResult.toString());
-        //log.warn(student.toString());
+    public ModelAndView createVolunteer(@PathVariable UUID applicationId, @Validated(BasicStudentInfo.class) StudentCreateDto studentCreateDto, BindingResult bindingResult) {
+        ModelAndView mv = studentService.create(applicationId, studentCreateDto, bindingResult);
 
-        return new ModelAndView("redirect:/");
+        return mv;
     }
 
-    @PostMapping("scholarship")
-    public ResponseEntity<Student> createScholarship(@Validated({ BasicStudentInfo.class, StudentBankingData.class }) @RequestBody StudentCreateDto studentCreateDto) {
-        Student student = studentService.create(studentCreateDto);
-
-        return new ResponseEntity<>(student, HttpStatus.CREATED);
-    }
+//    @PostMapping("scholarship")
+//    public ResponseEntity<Student> createScholarship(@Validated({ BasicStudentInfo.class, StudentBankingData.class }) @RequestBody StudentCreateDto studentCreateDto) {
+//        Student student = studentService.create(studentCreateDto);
+//
+//        return new ResponseEntity<>(student, HttpStatus.CREATED);
+//    }
 }

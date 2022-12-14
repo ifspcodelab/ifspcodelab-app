@@ -1,18 +1,36 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.Course;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipation;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationType;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class StudentService {
     private final CourseRepository courseRepository;
+    private final ApplicationRepository applicationRepository;
     private final StudentRepository studentRepository;
+    private final StudentParticipationRepository studentParticipationRepository;
 
-    public Student create(StudentCreateDto studentCreateDto) {
+    @Transactional
+    public ModelAndView create(UUID applicationId, StudentCreateDto studentCreateDto, BindingResult bindingResult) {
         Course course = courseRepository.findById(studentCreateDto.getCourseId()).orElseThrow();
+
+        Application application = applicationRepository.findById(applicationId).orElseThrow();
 
         Student student = new Student(
                 studentCreateDto.getEmail(),
@@ -25,8 +43,18 @@ public class StudentService {
                 studentCreateDto.getCellphone()
         );
 
-        studentRepository.save(student);
+        StudentParticipation studentParticipation = new StudentParticipation(
+                StudentParticipationType.VOLUNTEER,
+                LocalDate.now(),
+                student,
+                application
+        );
 
-        return student;
+        studentRepository.save(student);
+        log.info("Created Student '{}' of id={}", student.getName(), student.getId());
+        studentParticipationRepository.save(studentParticipation);
+        log.info("Created {}'s StudentParticipation of id={}", student.getName(), studentParticipation.getId());
+
+        return new ModelAndView("redirect:/");
     }
 }
