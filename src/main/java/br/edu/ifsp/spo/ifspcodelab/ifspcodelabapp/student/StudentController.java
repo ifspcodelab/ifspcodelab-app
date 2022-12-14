@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,7 @@ public class StudentController {
 
     // http://localhost:8080/applications/26be9581-43c2-4ba9-9bf3-55edb095a362/finish-project-application
     @GetMapping
-    public ModelAndView create(@PathVariable UUID applicationId) {
+    public ModelAndView create(@PathVariable UUID applicationId, StudentCreateDto studentCreateDto) {
         Optional<Application> application = applicationRepository.findById(applicationId);
         if (application.isEmpty()) {
             log.warn("Application of id {} does not exist", applicationId);
@@ -47,10 +48,14 @@ public class StudentController {
     }
 
     @PostMapping("volunteer")
-    public ResponseEntity<Student> createVolunteer(@Validated(BasicStudentInfo.class) @RequestBody StudentCreateDto studentCreateDto) {
-        Student student = studentService.create(studentCreateDto);
+    public ModelAndView createVolunteer(@Validated(BasicStudentInfo.class) StudentCreateDto studentCreateDto, BindingResult bindingResult) {
+        //Student student = studentService.create(studentCreateDto);
+        log.warn("hello there");
+        log.warn(String.valueOf(bindingResult.hasErrors()));
+        log.warn(bindingResult.toString());
+        //log.warn(student.toString());
 
-        return new ResponseEntity<>(student, HttpStatus.CREATED);
+        return new ModelAndView("redirect:/");
     }
 
     @PostMapping("scholarship")

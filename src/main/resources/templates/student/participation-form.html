@@ -9,22 +9,24 @@
 </head>
 <body>
   <div class="container">
-  <!-- distinguish endpoint via ternary operator or something -->
-  <form action="https://localhost:8080/applications/{applicationId}/finish-project-application/">
+  <!-- TODO: review url context -->
+  <form action="#" th:object="${studentCreateDto}" th:action="${studentApplication.isScholarship} ?
+    @{'finish-project-application/scholarship'} : @{'finish-project-application/volunteer'}" method="post"
+  >
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}">
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email">
       <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
     </div>
 
     <div class="mb-3">
       <label for="inputName" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}">
+      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name">
     </div>
 
     <div class="mb-3">
       <label for="selectCourse" class="form-label">Curso</label>
-      <select class="form-select" aria-label="Curso" id="selectCourse">
+      <select class="form-select" aria-label="Curso" id="selectCourse" th:field="*{courseId}">
 <!--        <option selected>Selecione seu curso</option>-->
         <option selected th:value="${studentApplication.course.id}" th:text="${studentApplication.course.name}"></option>
         <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
@@ -33,27 +35,27 @@
 
     <div class="mb-3">
       <label for="inputRegistration" class="form-label">Matrícula</label>
-      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}">
+      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}" th:name="registration">
     </div>
 
     <div class="mb-3">
       <label for="inputCpf" class="form-label">CPF</label>
-      <input type="text" class="form-control" id="inputCpf">
+      <input type="text" class="form-control" id="inputCpf" th:name="cpf">
     </div>
 
     <div class="mb-3">
       <label for="inputRg" class="form-label">RG</label>
-      <input type="text" class="form-control" id="inputRg">
+      <input type="text" class="form-control" id="inputRg" th:name="rg">
     </div>
 
     <div class="mb-3">
       <label for="inputBirthdate" class="form-label">Data de Nascimento</label>
-      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}">
+      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}" th:name="birthDate">
     </div>
 
     <div class="mb-3">
       <label for="inputCellphone" class="form-label">Celular</label>
-      <input type="number" class="form-control" id="inputCellphone">
+      <input type="number" class="form-control" id="inputCellphone" th:field="*{cellphone}">
     </div>
 
     <section th:if="${studentApplication.isScholarship}" class="mb-3" id="sectionScholarshipData">

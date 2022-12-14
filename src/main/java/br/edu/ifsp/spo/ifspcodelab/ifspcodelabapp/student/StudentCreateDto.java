@@ -18,26 +18,33 @@ public class StudentCreateDto {
     @NotNull(groups = BasicStudentInfo.class)
     @Email(groups = BasicStudentInfo.class)
     String email;
+
     @NotNull(groups = BasicStudentInfo.class)
     @NotBlank(groups = BasicStudentInfo.class)
     String name;
+
     @NotNull(groups = BasicStudentInfo.class)
     @CPF(groups = BasicStudentInfo.class)
     String cpf;
+
     @NotNull(groups = BasicStudentInfo.class)
     @NotBlank(groups = BasicStudentInfo.class)
     String rg;
+
     @NotNull(groups = BasicStudentInfo.class)
-    @NotBlank(groups = BasicStudentInfo.class)
     LocalDate birthDate;
+
     @NotNull(groups = BasicStudentInfo.class)
     @NotBlank(groups = BasicStudentInfo.class)
     String registration;
+
     @NotNull(groups = BasicStudentInfo.class)
     UUID courseId;
+
     @NotNull(groups = BasicStudentInfo.class)
     @NotBlank(groups = BasicStudentInfo.class)
     String cellphone;
+
     @NotNull(groups = StudentBankingData.class)
     @NotBlank(groups = StudentBankingData.class)
     String bankName;
