@@ -20,7 +20,7 @@ public class CoordinatorParticipationController {
     public ModelAndView index(Authentication authentication) {
         OAuth2User user = (OAuth2User) authentication.getPrincipal();
         String email = user.getAttribute("email");
-        List<CoordinatorParticipation> coordinatorParticipations = coordinatorParticipationRepository.findAllByCoordinatorEmail(email);
+        List<CoordinatorParticipation> coordinatorParticipations = coordinatorParticipationRepository.findAllByCoordinatorEmailOrderByStartDateDesc(email);
         ModelAndView mv = new ModelAndView("coordinator_participation/index");
         mv.addObject("coordinatorParticipations", coordinatorParticipations);
         return mv;

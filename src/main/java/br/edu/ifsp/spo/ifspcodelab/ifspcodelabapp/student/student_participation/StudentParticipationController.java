@@ -21,7 +21,7 @@ public class StudentParticipationController {
     public ModelAndView index(Authentication authentication) {
         OAuth2User user = (OAuth2User) authentication.getPrincipal();
         String email = user.getAttribute("email");
-        List<StudentParticipation> studentParticipations = studentPaticipationRepository.findAllByStudentEmail(email);
+        List<StudentParticipation> studentParticipations = studentPaticipationRepository.findAllByStudentEmailOrderByStartDateDesc(email);
         ModelAndView mv = new ModelAndView("student_participation/index");
         mv.addObject("studentParticipations", studentParticipations);
         return mv;

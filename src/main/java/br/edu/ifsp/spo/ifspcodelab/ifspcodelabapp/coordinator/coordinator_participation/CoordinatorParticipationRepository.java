@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CoordinatorParticipationRepository  extends JpaRepository<CoordinatorParticipation, UUID> {
-    List<CoordinatorParticipation> findAllByCoordinatorEmail(String email);
+    List<CoordinatorParticipation> findAllByCoordinatorEmailOrderByStartDateDesc(String email);
 }
