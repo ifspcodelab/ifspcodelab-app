@@ -1,5 +1,6 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.authentication;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,10 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -23,11 +23,15 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/icon.ico").permitAll();
                     authorizeConfig.requestMatchers("/selections/*/applications/submit").permitAll();
                     authorizeConfig.requestMatchers("/selections/*/applications/success").permitAll();
+                    authorizeConfig.requestMatchers("/admin").hasRole("ADMIN");
                     authorizeConfig.anyRequest().authenticated();
                 })
-                .formLogin(withDefaults())
-                .oauth2Login(withDefaults())
+                .oauth2Login(t -> t.successHandler(oAuth2SuccessHandler()))
                 .build();
+    }
+
+    public OAuth2SuccessHandler oAuth2SuccessHandler() {
+        return new OAuth2SuccessHandler();
     }
 
     @Bean
