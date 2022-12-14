@@ -61,8 +61,9 @@ public class StudentService {
                 studentCreateDto.getCellphone()
         );
 
+        var participationType = application.isScholarship() ? StudentParticipationType.SCHOLARSHIP : StudentParticipationType.VOLUNTEER;
         StudentParticipation studentParticipation = new StudentParticipation(
-                StudentParticipationType.VOLUNTEER,
+                participationType,
                 LocalDate.now(),
                 student,
                 application
