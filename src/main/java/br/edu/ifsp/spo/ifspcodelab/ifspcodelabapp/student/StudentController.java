@@ -2,6 +2,7 @@ package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationSelectionStatus;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,12 @@ public class StudentController {
         Optional<Application> application = applicationRepository.findById(applicationId);
         if (application.isEmpty()) {
             log.warn("Application of id {} does not exist", applicationId);
+            return new ModelAndView("redirect:/");
+        }
+
+        ApplicationSelectionStatus applicationStatus = application.get().getApplicationSelectionStatus();
+        if (applicationStatus.equals(ApplicationSelectionStatus.ON_REVIEW) || applicationStatus.equals(ApplicationSelectionStatus.NOT_SELECTED)) {
+            log.warn("Application of id={} is not selected", applicationId);
             return new ModelAndView("redirect:/");
         }
 

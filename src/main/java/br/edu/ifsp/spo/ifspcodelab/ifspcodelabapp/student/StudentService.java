@@ -2,6 +2,7 @@ package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationSelectionStatus;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.Course;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipation;
@@ -31,6 +32,12 @@ public class StudentService {
         Course course = courseRepository.findById(studentCreateDto.getCourseId()).orElseThrow();
 
         Application application = applicationRepository.findById(applicationId).orElseThrow();
+
+        ApplicationSelectionStatus applicationStatus = application.getApplicationSelectionStatus();
+        if (applicationStatus.equals(ApplicationSelectionStatus.ON_REVIEW) || applicationStatus.equals(ApplicationSelectionStatus.NOT_SELECTED)) {
+            log.warn("Application of id={} is not selected", applicationId);
+            return new ModelAndView("redirect:/");
+        }
 
         Student student = new Student(
                 studentCreateDto.getEmail(),
