@@ -34,7 +34,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
           SecurityContextHolder.getContext().setAuthentication(
                  new UsernamePasswordAuthenticationToken(userDetails, "", grantedAuthorities)
            );
-
+           System.out.println(response.isCommitted() ? "Committed" : "Fail");
+           if(response.isCommitted()) {
+            System.out.println("Log message: Admin response already Committed");
+           }
           getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/admin");
          }
     */
@@ -49,9 +52,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 SecurityContextHolder.getContext().setAuthentication(
                     new UsernamePasswordAuthenticationToken(userDetails, "", grantedAuthorities)
                 );
-                System.out.println(response.isCommitted() ? "Commited" : "Fail");
+                System.out.println(response.isCommitted() ? "Committed" : "Fail");
                 if(response.isCommitted()) {
-                    System.out.println("Log message: Coordinator Response already commited");
+                    System.out.println("Log message: Coordinator Response already committed");
                 }
                 // Maybe change redirect to a projects view?
                 getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/projects/{projectId}/editions/{editionId}/coordinator-participations");
@@ -66,21 +69,27 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
            
            if(student.isPresent()) {
             if(application.isPresent() && application.selected == true) {
-            // Student exists and has participation
                     List<GrantedAuthority> grantedAuthorities = List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
-    
+
                     UserDetail userDetails = new User(email, "", grantedAuthorities);
     
                     SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(userDetails, "", grantedAuthorities)
                     );
+
+                    System.out.println(response.isCommitted() ? "Committed" : "Fail");
+                    if(response.isCommitted()) {
+                        System.out.println("Log message: Student response already committed");
+                    }
+
+                // Student exists and has participation
                 if (studentParticipation.isPresent()) {
                     // redirect to student's 'home-page'
                     getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/projects/{projectId}/editions/{editionId}/student-participations");
                     ); 
                 } else {
                     // Student exists but doesn't have participation
-                    getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/createparticipationtoexistentstudent");
+                    getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/createparticipationtoexistentstudent"); // Load form with student's data to 'update' info on submit?
                 }
              }
              // Student doesn't exist but have a selected application
@@ -96,10 +105,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                     // redirect to student form endpoint via student controller
                     getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/createstudentandparticipationurl");
                 }
-            }.
+            }
             // Student doesn't exist and have no selected application.
 
            getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/notallowedpageandlogout");
         */
+
     }
 }
