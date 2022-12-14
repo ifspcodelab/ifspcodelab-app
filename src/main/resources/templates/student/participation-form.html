@@ -15,13 +15,13 @@
   >
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email">
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email" required>
       <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
     </div>
 
     <div class="mb-3">
       <label for="inputName" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name">
+      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name" required>
     </div>
 
     <div class="mb-3">
@@ -35,27 +35,27 @@
 
     <div class="mb-3">
       <label for="inputRegistration" class="form-label">Matrícula</label>
-      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}" th:name="registration">
+      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}" th:name="registration" required>
     </div>
 
     <div class="mb-3">
       <label for="inputCpf" class="form-label">CPF</label>
-      <input type="text" class="form-control" id="inputCpf" th:name="cpf">
+      <input type="text" class="form-control" id="inputCpf" th:name="cpf" required>
     </div>
 
     <div class="mb-3">
       <label for="inputRg" class="form-label">RG</label>
-      <input type="text" class="form-control" id="inputRg" th:name="rg">
+      <input type="text" class="form-control" id="inputRg" th:name="rg" required>
     </div>
 
     <div class="mb-3">
       <label for="inputBirthdate" class="form-label">Data de Nascimento</label>
-      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}" th:name="birthDate">
+      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}" th:name="birthDate" required>
     </div>
 
     <div class="mb-3">
       <label for="inputCellphone" class="form-label">Celular</label>
-      <input type="number" class="form-control" id="inputCellphone" th:field="*{cellphone}">
+      <input type="number" class="form-control" id="inputCellphone" th:field="*{cellphone}" required>
     </div>
 
     <section th:if="${studentApplication.isScholarship}" class="mb-3" id="sectionScholarshipData">
@@ -63,7 +63,7 @@
 
       <div class="mb-3">
         <label for="datalistBanks" class="form-label">Banco</label>
-        <input class="form-control" list="datalistBankOptions" id="datalistBanks" placeholder="Digite aqui o nome do banco a ser buscado">
+        <input class="form-control" list="datalistBankOptions" id="datalistBanks" placeholder="Digite aqui o nome do banco a ser buscado" required>
         <datalist id="datalistBankOptions">
           <!-- TODO: replace mock data with Brazilian banks dataset -->
           <option value="San Francisco">
@@ -76,13 +76,13 @@
 
       <div class="mb-3">
         <label for="inputBankAgency" class="form-label">Agência</label>
-        <input th:type="text" class="form-control" id="inputBankAgency">
+        <input th:type="text" class="form-control" id="inputBankAgency" required>
       </div>
 
       <div class="mb-3">
         <label for="selectBankAccount" class="form-label">Conta</label>
-        <select class="form-select" aria-label="Tipo de conta" id="selectBankAccount">
-          <option selected>Selecione o tipo da sua conta</option>
+        <select class="form-select" aria-label="Tipo de conta" id="selectBankAccount" required>
+          <option selected disabled value="">Selecione o tipo da sua conta</option>
           <option value="currentAccount">Conta corrente</option>
           <option value="savingsAccount">Conta poupança</option>
         </select>
@@ -90,7 +90,7 @@
     </section>
 
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="inputCheckParticipation">
+      <input type="checkbox" class="form-check-input" id="inputCheckParticipation" required>
       <label class="form-check-label" for="inputCheckParticipation" th:align="justify">
         Confirmo que as informações inseridas aqui serão usadas para gerar minha Ficha de Inscrição no Projeto de Ensino e confirmar minha participação nele.
       </label>
