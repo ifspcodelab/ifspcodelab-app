@@ -29,9 +29,20 @@ public class StudentService {
 
     @Transactional
     public ModelAndView create(UUID applicationId, StudentCreateDto studentCreateDto, BindingResult bindingResult) {
+        Application application = applicationRepository.findById(applicationId).orElseThrow();
+
         Course course = courseRepository.findById(studentCreateDto.getCourseId()).orElseThrow();
 
-        Application application = applicationRepository.findById(applicationId).orElseThrow();
+        if (bindingResult.hasErrors()) {
+            String viewRedirect = "redirect:/applications/" + applicationId + "/finish-project-application";
+            ModelAndView mv = new ModelAndView(viewRedirect);
+            var courseList = courseRepository.findAll();
+            var applicationCourse = courseList.stream().filter(c -> c.getId().equals(application.getCourse().getId())).findAny().orElse(null);
+            courseList.remove(applicationCourse);
+            mv.addObject("studentApplication", application);
+            mv.addObject("courseList", courseList);
+            return mv;
+        }
 
         ApplicationSelectionStatus applicationStatus = application.getApplicationSelectionStatus();
         if (applicationStatus.equals(ApplicationSelectionStatus.ON_REVIEW) || applicationStatus.equals(ApplicationSelectionStatus.NOT_SELECTED)) {
