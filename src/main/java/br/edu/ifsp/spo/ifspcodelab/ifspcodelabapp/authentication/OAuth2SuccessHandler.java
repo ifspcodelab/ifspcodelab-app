@@ -103,7 +103,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                         new UsernamePasswordAuthenticationToken(userDetails, "", grantedAuthorities)
                     );
                     // redirect to student form endpoint via student controller
-                    getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/createstudentandparticipationurl");
+                    getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/applications/{applicationId}/finish-project-application");
                 }
             }
             // Student doesn't exist and have no selected application.
