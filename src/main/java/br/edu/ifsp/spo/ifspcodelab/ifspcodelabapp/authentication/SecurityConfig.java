@@ -10,19 +10,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        var accountOpenPaths = List.of(
+                "/",
+                "/selections/*/applications/submit",
+                "/selections/*/applications/success"
+        );
+
+        return http
                 .authorizeHttpRequests(authorizeConfig -> {
-                    authorizeConfig.requestMatchers("/").permitAll();
-                    authorizeConfig.requestMatchers("/error").permitAll();
-                    authorizeConfig.requestMatchers("/icon.ico").permitAll();
-                    authorizeConfig.requestMatchers("/selections/*/applications/submit").permitAll();
-                    authorizeConfig.requestMatchers("/selections/*/applications/success").permitAll();
+                    authorizeConfig.requestMatchers(accountOpenPaths.toArray(String[]::new)).permitAll();
                     authorizeConfig.requestMatchers("/admin").hasRole("ADMIN");
                     authorizeConfig.anyRequest().authenticated();
                 })
