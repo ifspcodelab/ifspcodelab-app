@@ -27,7 +27,8 @@ public class StudentController {
     private final CourseRepository courseRepository;
     private final StudentService studentService;
 
-    // http://localhost:8080/applications/26be9581-43c2-4ba9-9bf3-55edb095a362/finish-project-application
+    //Scholarship: http://localhost:8080/applications/26be9581-43c2-4ba9-9bf3-55edb095a362/finish-project-application
+    //Volunteer: http://localhost:8080/applications/4120b98f-f53c-49a6-a6fb-bc177e9d352b/finish-project-application
     @GetMapping
     public ModelAndView create(@PathVariable UUID applicationId, StudentCreateDto studentCreateDto) {
         Optional<Application> application = applicationRepository.findById(applicationId);

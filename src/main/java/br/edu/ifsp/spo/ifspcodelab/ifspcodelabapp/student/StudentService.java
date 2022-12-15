@@ -73,7 +73,8 @@ public class StudentService {
         log.info("Created Student '{}' of id={}", student.getName(), student.getId());
         studentParticipationRepository.save(studentParticipation);
         log.info("Created {}'s StudentParticipation of id={}", student.getName(), studentParticipation.getId());
+        //if (application.isScholarship()) createStudentScholarshipParticipationData(studentParticipation);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("student_participation/index");
     }
 }
