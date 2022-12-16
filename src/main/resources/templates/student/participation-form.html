@@ -12,7 +12,7 @@
 <body>
   <div class="container">
   <!-- TODO: review url context -->
-  <form action="#" th:object="${studentCreateDto}" th:action="${studentApplication.isScholarship} ?
+  <form action="#" th:object="${studentParticipationForm}" th:action="${studentApplication.isScholarship} ?
     @{'finish-project-application/scholarship'} : @{'finish-project-application/volunteer'}" method="post"
   >
     <div class="mb-3">

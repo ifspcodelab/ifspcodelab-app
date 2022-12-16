@@ -29,8 +29,9 @@ public class StudentController {
 
     //Scholarship: http://localhost:8080/applications/26be9581-43c2-4ba9-9bf3-55edb095a362/finish-project-application
     //Volunteer: http://localhost:8080/applications/4120b98f-f53c-49a6-a6fb-bc177e9d352b/finish-project-application
+    // Although the dto object isn't directly used here, it is needed to be used in the participation-form html file
     @GetMapping
-    public ModelAndView create(@PathVariable UUID applicationId, StudentCreateDto studentCreateDto) {
+    public ModelAndView create(@PathVariable UUID applicationId, StudentParticipationForm studentParticipationForm) {
         Optional<Application> application = applicationRepository.findById(applicationId);
         if (application.isEmpty()) {
             log.warn("Application of id {} does not exist", applicationId);
@@ -57,8 +58,8 @@ public class StudentController {
     }
 
     @PostMapping("volunteer")
-    public ModelAndView createVolunteer(@PathVariable UUID applicationId, @Validated(BasicStudentInfo.class) StudentCreateDto studentCreateDto, BindingResult bindingResult) {
-        ModelAndView mv = studentService.create(applicationId, studentCreateDto, bindingResult);
+    public ModelAndView createVolunteer(@PathVariable UUID applicationId, @Validated(BasicStudentInfo.class) StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
+        ModelAndView mv = studentService.create(applicationId, studentParticipationForm, bindingResult);
 
         return mv;
     }

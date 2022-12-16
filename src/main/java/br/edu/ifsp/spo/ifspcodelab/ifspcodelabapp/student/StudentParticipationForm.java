@@ -1,5 +1,6 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ interface BasicStudentInfo {  }
 interface StudentBankingData {  }
 
 @Value
-public class StudentCreateDto {
+public class StudentParticipationForm {
     @NotNull(groups = BasicStudentInfo.class)
     @Email(groups = BasicStudentInfo.class)
     String email;
@@ -48,4 +49,16 @@ public class StudentCreateDto {
     @NotNull(groups = StudentBankingData.class)
     @NotBlank(groups = StudentBankingData.class)
     String bankName;
+
+    @NotNull(groups = StudentBankingData.class)
+    @NotBlank(groups = StudentBankingData.class)
+    String bankCode;
+
+    @NotNull(groups = StudentBankingData.class)
+    @NotBlank(groups = StudentBankingData.class)
+    String bankAgency;
+
+    @NotNull(groups = StudentBankingData.class)
+    @NotBlank(groups = StudentBankingData.class)
+    BankAccountType bankAccountType;
 }

@@ -28,10 +28,10 @@ public class StudentService {
     private final StudentParticipationRepository studentParticipationRepository;
 
     @Transactional
-    public ModelAndView create(UUID applicationId, StudentCreateDto studentCreateDto, BindingResult bindingResult) {
+    public ModelAndView create(UUID applicationId, StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
         Application application = applicationRepository.findById(applicationId).orElseThrow();
 
-        Course course = courseRepository.findById(studentCreateDto.getCourseId()).orElseThrow();
+        Course course = courseRepository.findById(studentParticipationForm.getCourseId()).orElseThrow();
 
         if (bindingResult.hasErrors()) {
             String viewRedirect = "redirect:/applications/" + applicationId + "/finish-project-application";
@@ -51,14 +51,14 @@ public class StudentService {
         }
 
         Student student = new Student(
-                studentCreateDto.getEmail(),
-                studentCreateDto.getName(),
-                studentCreateDto.getCpf(),
-                studentCreateDto.getRg(),
-                studentCreateDto.getBirthDate(),
-                studentCreateDto.getRegistration(),
+                studentParticipationForm.getEmail(),
+                studentParticipationForm.getName(),
+                studentParticipationForm.getCpf(),
+                studentParticipationForm.getRg(),
+                studentParticipationForm.getBirthDate(),
+                studentParticipationForm.getRegistration(),
                 course,
-                studentCreateDto.getCellphone()
+                studentParticipationForm.getCellphone()
         );
 
         var participationType = application.isScholarship() ? StudentParticipationType.SCHOLARSHIP : StudentParticipationType.VOLUNTEER;
@@ -75,6 +75,7 @@ public class StudentService {
         log.info("Created {}'s StudentParticipation of id={}", student.getName(), studentParticipation.getId());
         //if (application.isScholarship()) createStudentScholarshipParticipationData(studentParticipation);
 
+        //TODO: after merge, redirect to the endpoint that returns this view instead of the actual view
         return new ModelAndView("student_participation/index");
     }
 }
