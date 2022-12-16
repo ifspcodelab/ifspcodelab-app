@@ -59,7 +59,7 @@
 
     <div class="mb-3">
       <label for="inputCellphone" class="form-label">Celular</label>
-      <input type="tel" class="form-control" id="inputCellphone" th:field="*{cellphone}" th:errorclass="is-invalid" required>
+      <input type="tel" class="form-control" id="inputCellphone" th:value="${studentApplication.phone}" th:name="cellphone" th:errorclass="is-invalid" required>
       <div class="invalid-feedback" th:errors="*{cellphone}"></div>
     </div>
 
