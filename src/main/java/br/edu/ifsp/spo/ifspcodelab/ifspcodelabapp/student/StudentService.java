@@ -37,6 +37,11 @@ public class StudentService {
 
         Course course = courseRepository.findById(studentParticipationForm.getCourseId()).orElseThrow();
 
+        if (existsParticipationByApplicationId(applicationId)) {
+            log.warn("Application of id={} has a participation already", applicationId);
+            return new ModelAndView("redirect:/");
+        }
+
         if (bindingResult.hasErrors()) {
             String viewRedirect = "redirect:/applications/" + applicationId + "/finish-project-application";
             ModelAndView mv = new ModelAndView(viewRedirect);
@@ -95,5 +100,9 @@ public class StudentService {
 
         scholarshipParticipationRepository.save(scholarshipParticipation);
         log.info("Created {}'s Scholarship Participation of id={}", studentParticipation.getStudent().getName(), scholarshipParticipation.getId());
+    }
+
+    public boolean existsParticipationByApplicationId(UUID applicationId) {
+        return studentParticipationRepository.existsByApplicationId(applicationId);
     }
 }

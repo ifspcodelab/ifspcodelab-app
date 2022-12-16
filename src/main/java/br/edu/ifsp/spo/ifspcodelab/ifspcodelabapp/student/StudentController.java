@@ -45,6 +45,11 @@ public class StudentController {
             return new ModelAndView("redirect:/");
         }
 
+        if (studentService.existsParticipationByApplicationId(applicationId)) {
+            log.warn("Application of id={} has a participation already", applicationId);
+            return new ModelAndView("redirect:/");
+        }
+
         ModelAndView mv = new ModelAndView("student/participation-form");
 
         var courseList = courseRepository.findAll();
