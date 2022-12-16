@@ -66,10 +66,12 @@ public class StudentController {
         return mv;
     }
 
-//    @PostMapping("scholarship")
-//    public ResponseEntity<Student> createScholarship(@Validated({ BasicStudentInfo.class, StudentBankingData.class }) @RequestBody StudentCreateDto studentCreateDto) {
-//        Student student = studentService.create(studentCreateDto);
-//
-//        return new ResponseEntity<>(student, HttpStatus.CREATED);
-//    }
+    @PostMapping("scholarship")
+    public ModelAndView createScholarship(@PathVariable UUID applicationId, @Validated({ BasicStudentInfo.class, StudentBankingData.class }) StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
+        log.info(applicationId.toString());
+        log.info(studentParticipationForm.toString());
+        log.info(bindingResult.getFieldErrors().toString());
+
+        return new ModelAndView("redirect:/");
+    }
 }

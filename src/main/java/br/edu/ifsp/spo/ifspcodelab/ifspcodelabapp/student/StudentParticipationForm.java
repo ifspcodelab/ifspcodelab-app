@@ -59,6 +59,5 @@ public class StudentParticipationForm {
     String bankAgency;
 
     @NotNull(groups = StudentBankingData.class)
-    @NotBlank(groups = StudentBankingData.class)
     BankAccountType bankAccountType;
 }
