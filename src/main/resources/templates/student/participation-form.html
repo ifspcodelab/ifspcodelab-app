@@ -17,13 +17,13 @@
   >
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email" required>
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email" minlength="3" maxlength="100" required>
       <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
     </div>
 
     <div class="mb-3">
       <label for="inputName" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name" required>
+      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name" minlength="3" maxlength="100" required>
     </div>
 
     <div class="mb-3">
@@ -59,7 +59,7 @@
 
     <div class="mb-3">
       <label for="inputCellphone" class="form-label">Celular</label>
-      <input type="tel" class="form-control" id="inputCellphone" th:value="${studentApplication.phone}" th:name="cellphone" th:errorclass="is-invalid" required>
+      <input type="tel" class="form-control" id="inputCellphone" th:value="${studentApplication.phone}" th:name="cellphone" th:errorclass="is-invalid" minlength="8" maxlength="15" required>
       <div class="invalid-feedback" th:errors="*{cellphone}"></div>
     </div>
 
