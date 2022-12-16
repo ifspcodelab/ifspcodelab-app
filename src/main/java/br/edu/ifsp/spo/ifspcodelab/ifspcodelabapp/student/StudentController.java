@@ -68,10 +68,8 @@ public class StudentController {
 
     @PostMapping("scholarship")
     public ModelAndView createScholarship(@PathVariable UUID applicationId, @Validated({ BasicStudentInfo.class, StudentBankingData.class }) StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
-        log.info(applicationId.toString());
-        log.info(studentParticipationForm.toString());
-        log.info(bindingResult.getFieldErrors().toString());
+        ModelAndView mv = studentService.create(applicationId, studentParticipationForm, bindingResult);
 
-        return new ModelAndView("redirect:/");
+        return mv;
     }
 }

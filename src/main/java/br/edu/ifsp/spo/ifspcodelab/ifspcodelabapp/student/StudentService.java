@@ -9,6 +9,8 @@ import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationType;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.ScholarshipParticipation;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.ScholarshipParticipationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class StudentService {
     private final ApplicationRepository applicationRepository;
     private final StudentRepository studentRepository;
     private final StudentParticipationRepository studentParticipationRepository;
+    private final ScholarshipParticipationRepository scholarshipParticipationRepository;
 
     @Transactional
     public ModelAndView create(UUID applicationId, StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
@@ -75,9 +78,22 @@ public class StudentService {
         log.info("Created Student '{}' of id={}", student.getName(), student.getId());
         studentParticipationRepository.save(studentParticipation);
         log.info("Created {}'s StudentParticipation of id={}", student.getName(), studentParticipation.getId());
-        //if (application.isScholarship()) createStudentScholarshipParticipationData(studentParticipation);
+        if (application.isScholarship()) createScholarshipParticipationData(studentParticipationForm, studentParticipation);
 
         //TODO: after merge, redirect to the endpoint that returns this view instead of the actual view
         return new ModelAndView("student_participation/index");
+    }
+
+    private void createScholarshipParticipationData(StudentParticipationForm studentParticipationForm, StudentParticipation studentParticipation) {
+        ScholarshipParticipation scholarshipParticipation = new ScholarshipParticipation(
+                studentParticipationForm.getBankName(),
+                studentParticipationForm.getBankCode(),
+                studentParticipationForm.getBankAgency(),
+                studentParticipationForm.getBankAccountType(),
+                studentParticipation
+        );
+
+        scholarshipParticipationRepository.save(scholarshipParticipation);
+        log.info("Created {}'s Scholarship Participation of id={}", studentParticipation.getStudent().getName(), scholarshipParticipation.getId());
     }
 }
