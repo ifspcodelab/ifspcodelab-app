@@ -2,7 +2,6 @@ package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
-import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationSelectionStatus;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
 import lombok.AllArgsConstructor;
@@ -39,8 +38,7 @@ public class StudentController {
             return new ModelAndView("redirect:/");
         }
 
-        ApplicationSelectionStatus applicationStatus = application.get().getApplicationSelectionStatus();
-        if (applicationStatus.equals(ApplicationSelectionStatus.ON_REVIEW) || applicationStatus.equals(ApplicationSelectionStatus.NOT_SELECTED)) {
+        if (application.get().isNotSelected()) {
             log.warn("Application of id={} is not selected", applicationId);
             return new ModelAndView("redirect:/");
         }

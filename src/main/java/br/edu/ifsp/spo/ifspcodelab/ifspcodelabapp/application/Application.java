@@ -77,4 +77,8 @@ public class Application {
     public Boolean isScholarship() {
         return this.applicationSelectionStatus.equals(ApplicationSelectionStatus.SELECTED_AS_SCHOLARSHIP);
     }
+
+    public boolean isNotSelected() {
+        return this.applicationSelectionStatus.equals(ApplicationSelectionStatus.ON_REVIEW) || this.applicationSelectionStatus.equals(ApplicationSelectionStatus.NOT_SELECTED);
+    }
 }
