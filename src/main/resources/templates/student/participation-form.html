@@ -80,6 +80,21 @@
       </div>
 
       <div class="mb-3">
+        <label for="datalistBankCodes" class="form-label">Código do banco</label>
+        <input class="form-control" list="datalistBankCodeOptions" id="datalistBankCodes" placeholder="Digite aqui o código do banco a ser buscado" required>
+        <datalist id="datalistBankCodeOptions">
+          <!-- TODO: replace mock data with Brazilian banks dataset -->
+          <option value="001">
+          <option value="002">
+          <option value="003">
+          <option value="004">
+          <option value="005">
+          <option value="006">
+          <option value="007">
+        </datalist>
+      </div>
+
+      <div class="mb-3">
         <label for="inputBankAgency" class="form-label">Agência</label>
         <input th:type="text" class="form-control" id="inputBankAgency" required>
       </div>
@@ -88,8 +103,7 @@
         <label for="selectBankAccount" class="form-label">Conta</label>
         <select class="form-select" aria-label="Tipo de conta" id="selectBankAccount" required>
           <option selected disabled value="">Selecione o tipo da sua conta</option>
-          <option value="currentAccount">Conta corrente</option>
-          <option value="savingsAccount">Conta poupança</option>
+          <option th:each="accountType : ${bankAccountType}" th:value="${accountType}" th:text="${accountType.name}"></option>
         </select>
       </div>
     </section>

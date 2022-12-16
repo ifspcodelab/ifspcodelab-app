@@ -8,6 +8,7 @@ import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepositor
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipation;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipationType;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class StudentService {
             courseList.remove(applicationCourse);
             mv.addObject("studentApplication", application);
             mv.addObject("courseList", courseList);
+            mv.addObject("bankAccountType", BankAccountType.values());
             return mv;
         }
 

@@ -4,6 +4,7 @@ import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationSelectionStatus;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.CourseRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,7 @@ public class StudentController {
         //Attribute name should not be named 'application' because it conflicts with Thymeleaf
         mv.addObject("studentApplication", application.get());
         mv.addObject("courseList", courseList);
+        mv.addObject("bankAccountType", BankAccountType.values());
 
         return mv;
     }
