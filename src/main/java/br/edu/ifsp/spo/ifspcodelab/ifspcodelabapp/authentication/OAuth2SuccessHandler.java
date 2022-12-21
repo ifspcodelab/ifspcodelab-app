@@ -1,8 +1,14 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.authentication;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.Student;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.StudentRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.StudentParticipation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,11 +18,18 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
+@Component
+@AllArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    private ApplicationRepository applicationRepository;
+    private StudentRepository studentRepository;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User user = (OAuth2User) authentication.getPrincipal();
@@ -61,8 +74,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             }
          */
 
-        /*
-           Student student = studentRepository.findByEmail(email).orElseThrow(); // May require exception handling
+
+/*           Student student = studentRepository.findByEmail(email).orElseThrow(); // May require exception handling
            Application application = applicationRepository.findByEmail(email).orElseThrow(); // May require exception handling
            StudentParticipation studentParticipation = studentParticipationRepository.findByEmailAndExpireDateBefore(email, LocalDate.now()); // May require exception handling
 
@@ -109,7 +122,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             // Student doesn't exist and have no selected application.
 
            getRedirectStrategy().sendRedirect(request, response, "http://localhost:8080/notallowedpageandlogout");
-        */
 
+           */
     }
 }

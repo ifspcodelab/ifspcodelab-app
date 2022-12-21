@@ -1,5 +1,8 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.authentication;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.StudentRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +17,11 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         var accountOpenPaths = List.of(
@@ -30,13 +36,15 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/admin").hasRole("ADMIN");
                     authorizeConfig.anyRequest().authenticated();
                 })
-                .oauth2Login(t -> t.successHandler(oAuth2SuccessHandler()))
+                .oauth2Login(t -> t.successHandler(oAuth2SuccessHandler))
                 .build();
     }
 
-    public OAuth2SuccessHandler oAuth2SuccessHandler() {
-        return new OAuth2SuccessHandler();
-    }
+//    @Bean
+//    public OAuth2SuccessHandler oAuth2SuccessHandler(ApplicationRepository applicationRepository,
+//                                                     StudentRepository studentRepository) {
+//        return new OAuth2SuccessHandler(applicationRepository, studentRepository);
+//    }
 
     @Bean
     public UserDetailsService userDetailsService() {
