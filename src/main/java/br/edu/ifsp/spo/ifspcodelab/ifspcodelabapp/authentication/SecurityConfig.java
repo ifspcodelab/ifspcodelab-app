@@ -1,5 +1,9 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.authentication;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.ApplicationRepository;
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.StudentRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,26 +13,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        var accountOpenPaths = List.of(
+                "/",
+                "/selections/*/applications/submit",
+                "/selections/*/applications/success"
+        );
+
+        return http
                 .authorizeHttpRequests(authorizeConfig -> {
-                    authorizeConfig.requestMatchers("/").permitAll();
-                    authorizeConfig.requestMatchers("/error").permitAll();
-                    authorizeConfig.requestMatchers("/icon.ico").permitAll();
-                    authorizeConfig.requestMatchers("/selections/*/applications/submit").permitAll();
-                    authorizeConfig.requestMatchers("/selections/*/applications/success").permitAll();
+                    authorizeConfig.requestMatchers(accountOpenPaths.toArray(String[]::new)).permitAll();
+                    authorizeConfig.requestMatchers("/admin").hasRole("ADMIN");
                     authorizeConfig.anyRequest().authenticated();
                 })
-                .formLogin(withDefaults())
-                .oauth2Login(withDefaults())
+                .oauth2Login(t -> t.successHandler(oAuth2SuccessHandler))
                 .build();
     }
+
+//    @Bean
+//    public OAuth2SuccessHandler oAuth2SuccessHandler(ApplicationRepository applicationRepository,
+//                                                     StudentRepository studentRepository) {
+//        return new OAuth2SuccessHandler(applicationRepository, studentRepository);
+//    }
 
     @Bean
     public UserDetailsService userDetailsService() {
