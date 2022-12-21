@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+  <title>Student Participation Form</title>
+</head>
+<body>
+  <div class="container">
+  <!-- TODO: review url context -->
+  <form action="#" th:object="${studentParticipationForm}" th:action="${studentApplication.isScholarship} ?
+    @{'finish-project-application/scholarship'} : @{'finish-project-application/volunteer'}" method="post"
+  >
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" aria-describedby="emailHelp" th:field="*{email}" minlength="3" maxlength="100" required>
+      <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" class="form-control" th:field="*{name}" minlength="3" maxlength="100" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="courseId" class="form-label">Curso</label>
+      <select class="form-select" aria-label="Curso" th:field="*{courseId}">
+<!--        <option selected>Selecione seu curso</option>-->
+<!--        <option selected th:value="${studentApplication.course.id}" th:text="${studentApplication.course.name}"></option>-->
+        <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="registration" class="form-label">Matrícula</label>
+      <input type="text" class="form-control" th:field="*{registration}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="cpf" class="form-label">CPF</label>
+      <input type="text" class="form-control" th:field="*{cpf}" th:errorclass="is-invalid" required>
+      <div class="invalid-feedback" th:errors="*{cpf}"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="rg" class="form-label">RG</label>
+      <input type="text" class="form-control" th:field="*{rg}" th:errorclass="is-invalid" required>
+      <div class="invalid-feedback" th:errors="*{rg}"></div>
+    </div>
+
+    <div class="mb-3">
+      <label for="birthDate" class="form-label">Data de Nascimento</label>
+      <input class="form-control" type="date" th:field="*{birthDate}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="cellphone" class="form-label">Celular</label>
+      <input type="tel" class="form-control" th:field="*{cellphone}" th:errorclass="is-invalid" minlength="8" maxlength="15" required>
+      <div class="invalid-feedback" th:errors="*{cellphone}"></div>
+    </div>
+
+    <section th:if="${studentApplication.isScholarship}" class="mb-3" id="sectionScholarshipData">
+      <p th:align="justify">Sua aplicação no projeto foi selecionada como bolsista, portanto, insira a seguir as suas informações bancárias.</p>
+
+      <div class="mb-3">
+        <label for="bankName" class="form-label">Banco</label>
+        <input class="form-control" list="datalistBankOptions" id="datalistBanks" th:field="*{bankName}" placeholder="Digite aqui o nome do banco a ser buscado" required>
+        <datalist id="datalistBankOptions">
+          <!-- TODO: replace mock data with Brazilian banks dataset: https://github.com/guibranco/BancosBrasileiros -->
+          <option value="San Francisco">
+          <option value="New York">
+          <option value="Seattle">
+          <option value="Los Angeles">
+          <option value="Chicago">
+        </datalist>
+      </div>
+
+      <div class="mb-3">
+        <label for="bankCode" class="form-label">Código do banco</label>
+        <input class="form-control" list="datalistBankCodeOptions" id="datalistBankCodes" th:field="*{bankCode}" placeholder="Digite aqui o código do banco a ser buscado" required>
+        <datalist id="datalistBankCodeOptions">
+          <!-- TODO: replace mock data with Brazilian banks dataset: https://github.com/guibranco/BancosBrasileiros -->
+          <option value="001">
+          <option value="002">
+          <option value="003">
+          <option value="004">
+          <option value="005">
+          <option value="006">
+          <option value="007">
+        </datalist>
+      </div>
+
+      <div class="mb-3">
+        <label for="bankAgency" class="form-label">Agência</label>
+        <input th:type="text" class="form-control" th:field="*{bankAgency}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="bankAccountType" class="form-label">Conta</label>
+        <select class="form-select" aria-label="Tipo de conta" th:field="*{bankAccountType}" required>
+          <option selected disabled value="">Selecione o tipo da sua conta</option>
+          <option th:each="accountType : ${bankAccountType}" th:value="${accountType}" th:text="${accountType.name}"></option>
+        </select>
+      </div>
+    </section>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" th:field="*{confirmed}" required>
+      <label class="form-check-label" for="confirmed" th:align="justify">
+        Confirmo que as informações inseridas aqui serão usadas para gerar minha Ficha de Inscrição no Projeto de Ensino e confirmar minha participação nele.
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirmar cadastro</button>
+  </form>
+  </div>
+</body>
+</html>

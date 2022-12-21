@@ -19,7 +19,9 @@
                     <span> - </span>
                     <span th:text="${#temporals.format(studentParticipation.getStartDate(), 'dd/MM/yyyy')}"></span>
                     <span> a </span>
-                    <span th:text="${#temporals.format(studentParticipation.getEndDate(), 'dd/MM/yyyy')}"></span>
+                    <span th:if="${studentParticipation.getEndDate()} != null"
+                          th:text="${#temporals.format(studentParticipation.getEndDate(), 'dd/MM/yyyy')}"></span>
+                    <span th:if="${studentParticipation.getEndDate()} == null">Atual</span>
                     <span> - </span>
                     <span th:text="${studentParticipation.getStudentParticipationType().getName()}"></span>
                 </a>

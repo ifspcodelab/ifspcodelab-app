@@ -30,10 +30,10 @@ public class CoordinatorParticipation {
     @ManyToOne
     private Edition edition;
 
-    public CoordinatorParticipation(LocalDate startDate, LocalDate endDate, Coordinator coordinator, Edition edition) {
+    public CoordinatorParticipation(LocalDate startDate, Coordinator coordinator, Edition edition) {
         this.id = UUID.randomUUID();
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = null;
         this.coordinator = coordinator;
         this.edition = edition;
     }

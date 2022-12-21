@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.project.Project;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.selection.Selection;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.selection.SelectionRepository;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.course.Course;
@@ -106,8 +105,8 @@ public class ApplicationController {
             form.shift, 
             form.period, 
             selection, 
-            0, 
-            false
+            0,
+            ApplicationSelectionStatus.ON_REVIEW
         );
 
         log.info(form.toString());

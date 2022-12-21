@@ -32,14 +32,13 @@ public class StudentParticipation {
     public StudentParticipation(
             StudentParticipationType studentParticipationType,
             LocalDate startDate,
-            LocalDate endDate,
             Student student,
             Application application
     ) {
         this.id = UUID.randomUUID();
         this.studentParticipationType = studentParticipationType;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.endDate = null;
         this.student = student;
         this.application = application;
     }
