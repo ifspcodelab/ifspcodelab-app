@@ -70,7 +70,7 @@
         <label for="bankName" class="form-label">Banco</label>
         <input class="form-control" list="datalistBankOptions" id="datalistBanks" th:field="*{bankName}" placeholder="Digite aqui o nome do banco a ser buscado" required>
         <datalist id="datalistBankOptions">
-          <!-- TODO: replace mock data with Brazilian banks dataset -->
+          <!-- TODO: replace mock data with Brazilian banks dataset: https://github.com/guibranco/BancosBrasileiros -->
           <option value="San Francisco">
           <option value="New York">
           <option value="Seattle">
@@ -83,7 +83,7 @@
         <label for="bankCode" class="form-label">Código do banco</label>
         <input class="form-control" list="datalistBankCodeOptions" id="datalistBankCodes" th:field="*{bankCode}" placeholder="Digite aqui o código do banco a ser buscado" required>
         <datalist id="datalistBankCodeOptions">
-          <!-- TODO: replace mock data with Brazilian banks dataset -->
+          <!-- TODO: replace mock data with Brazilian banks dataset: https://github.com/guibranco/BancosBrasileiros -->
           <option value="001">
           <option value="002">
           <option value="003">
