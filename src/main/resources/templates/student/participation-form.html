@@ -16,50 +16,50 @@
     @{'finish-project-application/scholarship'} : @{'finish-project-application/volunteer'}" method="post"
   >
     <div class="mb-3">
-      <label for="inputEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" th:value="${studentApplication.email}" th:name="email" minlength="3" maxlength="100" required>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" aria-describedby="emailHelp" th:field="*{email}" minlength="3" maxlength="100" required>
       <div id="emailHelp" class="form-text">É obrigatório usar o endereço de email institucional.</div>
     </div>
 
     <div class="mb-3">
-      <label for="inputName" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="inputName" th:value="${studentApplication.name}" th:name="name" minlength="3" maxlength="100" required>
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" class="form-control" th:field="*{name}" minlength="3" maxlength="100" required>
     </div>
 
     <div class="mb-3">
-      <label for="selectCourse" class="form-label">Curso</label>
-      <select class="form-select" aria-label="Curso" id="selectCourse" th:field="*{courseId}">
+      <label for="courseId" class="form-label">Curso</label>
+      <select class="form-select" aria-label="Curso" th:field="*{courseId}">
 <!--        <option selected>Selecione seu curso</option>-->
-        <option selected th:value="${studentApplication.course.id}" th:text="${studentApplication.course.name}"></option>
+<!--        <option selected th:value="${studentApplication.course.id}" th:text="${studentApplication.course.name}"></option>-->
         <option th:each="course : ${courseList}" th:value="${course.id}" th:text="${course.name}"></option>
       </select>
     </div>
 
     <div class="mb-3">
-      <label for="inputRegistration" class="form-label">Matrícula</label>
-      <input type="text" class="form-control" id="inputRegistration" th:value="${studentApplication.registration}" th:name="registration" required>
+      <label for="registration" class="form-label">Matrícula</label>
+      <input type="text" class="form-control" th:field="*{registration}" required>
     </div>
 
     <div class="mb-3">
-      <label for="inputCpf" class="form-label">CPF</label>
-      <input type="text" class="form-control" id="inputCpf" th:name="cpf" th:errorclass="is-invalid" required>
+      <label for="cpf" class="form-label">CPF</label>
+      <input type="text" class="form-control" th:field="*{cpf}" th:errorclass="is-invalid" required>
       <div class="invalid-feedback" th:errors="*{cpf}"></div>
     </div>
 
     <div class="mb-3">
-      <label for="inputRg" class="form-label">RG</label>
-      <input type="text" class="form-control" id="inputRg" th:name="rg" th:errorclass="is-invalid" required>
+      <label for="rg" class="form-label">RG</label>
+      <input type="text" class="form-control" th:field="*{rg}" th:errorclass="is-invalid" required>
       <div class="invalid-feedback" th:errors="*{rg}"></div>
     </div>
 
     <div class="mb-3">
-      <label for="inputBirthdate" class="form-label">Data de Nascimento</label>
-      <input class="form-control" type="date" id="inputBirthdate" th:value="${studentApplication.birthDate}" th:name="birthDate" required>
+      <label for="birthDate" class="form-label">Data de Nascimento</label>
+      <input class="form-control" type="date" th:field="*{birthDate}" required>
     </div>
 
     <div class="mb-3">
-      <label for="inputCellphone" class="form-label">Celular</label>
-      <input type="tel" class="form-control" id="inputCellphone" th:value="${studentApplication.phone}" th:name="cellphone" th:errorclass="is-invalid" minlength="8" maxlength="15" required>
+      <label for="cellphone" class="form-label">Celular</label>
+      <input type="tel" class="form-control" th:field="*{cellphone}" th:errorclass="is-invalid" minlength="8" maxlength="15" required>
       <div class="invalid-feedback" th:errors="*{cellphone}"></div>
     </div>
 
@@ -67,7 +67,7 @@
       <p th:align="justify">Sua aplicação no projeto foi selecionada como bolsista, portanto, insira a seguir as suas informações bancárias.</p>
 
       <div class="mb-3">
-        <label for="datalistBanks" class="form-label">Banco</label>
+        <label for="bankName" class="form-label">Banco</label>
         <input class="form-control" list="datalistBankOptions" id="datalistBanks" th:field="*{bankName}" placeholder="Digite aqui o nome do banco a ser buscado" required>
         <datalist id="datalistBankOptions">
           <!-- TODO: replace mock data with Brazilian banks dataset -->
@@ -80,7 +80,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="datalistBankCodes" class="form-label">Código do banco</label>
+        <label for="bankCode" class="form-label">Código do banco</label>
         <input class="form-control" list="datalistBankCodeOptions" id="datalistBankCodes" th:field="*{bankCode}" placeholder="Digite aqui o código do banco a ser buscado" required>
         <datalist id="datalistBankCodeOptions">
           <!-- TODO: replace mock data with Brazilian banks dataset -->
@@ -95,13 +95,13 @@
       </div>
 
       <div class="mb-3">
-        <label for="inputBankAgency" class="form-label">Agência</label>
-        <input th:type="text" class="form-control" id="inputBankAgency" th:field="*{bankAgency}" required>
+        <label for="bankAgency" class="form-label">Agência</label>
+        <input th:type="text" class="form-control" th:field="*{bankAgency}" required>
       </div>
 
       <div class="mb-3">
-        <label for="selectBankAccount" class="form-label">Conta</label>
-        <select class="form-select" aria-label="Tipo de conta" id="selectBankAccount" th:field="*{bankAccountType}" required>
+        <label for="bankAccountType" class="form-label">Conta</label>
+        <select class="form-select" aria-label="Tipo de conta" th:field="*{bankAccountType}" required>
           <option selected disabled value="">Selecione o tipo da sua conta</option>
           <option th:each="accountType : ${bankAccountType}" th:value="${accountType}" th:text="${accountType.name}"></option>
         </select>
@@ -109,8 +109,8 @@
     </section>
 
     <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="inputCheckParticipation" required>
-      <label class="form-check-label" for="inputCheckParticipation" th:align="justify">
+      <input type="checkbox" class="form-check-input" th:field="*{confirmed}" required>
+      <label class="form-check-label" for="confirmed" th:align="justify">
         Confirmo que as informações inseridas aqui serão usadas para gerar minha Ficha de Inscrição no Projeto de Ensino e confirmar minha participação nele.
       </label>
     </div>

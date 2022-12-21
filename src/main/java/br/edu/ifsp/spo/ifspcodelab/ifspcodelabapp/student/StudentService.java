@@ -31,31 +31,19 @@ public class StudentService {
     private final ScholarshipParticipationRepository scholarshipParticipationRepository;
 
     @Transactional
-    public ModelAndView create(UUID applicationId, StudentParticipationForm studentParticipationForm, BindingResult bindingResult) {
-        Application application = applicationRepository.findById(applicationId).orElseThrow();
+    public ModelAndView create(UUID applicationId, StudentParticipationForm studentParticipationForm) {
+        Application application = applicationRepository.findById(applicationId).orElseThrow(RuntimeException::new);
 
-        Course course = courseRepository.findById(studentParticipationForm.getCourseId()).orElseThrow();
+        Course course = courseRepository.findById(studentParticipationForm.getCourseId()).orElseThrow(RuntimeException::new);
 
         if (application.isNotSelected()) {
             log.warn("Application of id={} is not selected", applicationId);
-            return new ModelAndView("redirect:/");
+            throw new RuntimeException();
         }
 
         if (existsParticipationByApplicationId(applicationId)) {
             log.warn("Application of id={} has a participation already", applicationId);
-            return new ModelAndView("redirect:/");
-        }
-
-        if (bindingResult.hasErrors()) {
-            String viewRedirect = "redirect:/applications/" + applicationId + "/finish-project-application";
-            ModelAndView mv = new ModelAndView(viewRedirect);
-            var courseList = courseRepository.findAll();
-            var applicationCourse = courseList.stream().filter(c -> c.getId().equals(application.getCourse().getId())).findAny().orElse(null);
-            courseList.remove(applicationCourse);
-            mv.addObject("studentApplication", application);
-            mv.addObject("courseList", courseList);
-            mv.addObject("bankAccountType", BankAccountType.values());
-            return mv;
+            throw new RuntimeException();
         }
 
         Student student = new Student(

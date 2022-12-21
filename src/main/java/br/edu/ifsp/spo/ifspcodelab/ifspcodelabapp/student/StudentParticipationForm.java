@@ -1,11 +1,13 @@
 package br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student;
 
+import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.application.Application;
 import br.edu.ifsp.spo.ifspcodelab.ifspcodelabapp.student.student_participation.scholarship_participation.BankAccountType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Value;
+import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -14,7 +16,7 @@ interface BasicStudentInfo {  }
 
 interface StudentBankingData {  }
 
-@Value
+@Data
 public class StudentParticipationForm {
     @NotNull(groups = BasicStudentInfo.class)
     @Email(groups = BasicStudentInfo.class)
@@ -33,6 +35,7 @@ public class StudentParticipationForm {
     String rg;
 
     @NotNull(groups = BasicStudentInfo.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate birthDate;
 
     @NotNull(groups = BasicStudentInfo.class)
@@ -60,4 +63,7 @@ public class StudentParticipationForm {
 
     @NotNull(groups = StudentBankingData.class)
     BankAccountType bankAccountType;
+
+    @NotNull(groups = BasicStudentInfo.class)
+    Boolean confirmed;
 }
