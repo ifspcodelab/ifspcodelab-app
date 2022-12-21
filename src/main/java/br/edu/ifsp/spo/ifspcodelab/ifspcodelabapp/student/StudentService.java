@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -71,8 +70,7 @@ public class StudentService {
         log.info("Created {}'s StudentParticipation of id={}", student.getName(), studentParticipation.getId());
         if (application.isScholarship()) createScholarshipParticipationData(studentParticipationForm, studentParticipation);
 
-        //TODO: after merge, redirect to the endpoint that returns this view instead of the actual view
-        return new ModelAndView("student_participation/index");
+        return new ModelAndView("redirect:/student-participations");
     }
 
     private void createScholarshipParticipationData(StudentParticipationForm studentParticipationForm, StudentParticipation studentParticipation) {
