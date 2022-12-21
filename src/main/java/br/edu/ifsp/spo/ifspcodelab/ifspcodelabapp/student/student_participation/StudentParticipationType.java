@@ -6,6 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum StudentParticipationType {
-    VOLUNTEER,
-    SCHOLARSHIP;
+    VOLUNTEER("Voluntário"),
+    SCHOLARSHIP("Bolsista");
+
+    private String name;
 }

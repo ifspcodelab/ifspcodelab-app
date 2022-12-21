@@ -21,7 +21,7 @@ public class StudentParticipation {
     @Id
     private UUID id;
     @Enumerated(EnumType.STRING)
-    private StudentParticipationType studentParticipationType; //enum. VOLUNTEER, SCHOLARSHIP
+    private StudentParticipationType studentParticipationType;
     private LocalDate startDate;
     private LocalDate endDate;
     @ManyToOne
